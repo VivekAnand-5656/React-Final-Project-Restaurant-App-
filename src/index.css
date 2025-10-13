@@ -1,0 +1,25 @@
+@import "tailwindcss";
+body::-webkit-scrollbar{
+    display: none;
+}
+/* Hide all scrollbars */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Front image styling */
+.pics {
+  border: 10px solid #fff;
+  box-shadow: 2px 2px 10px #fff;
+}
+
+/* Top section border radius */
+.rad {
+  border-radius: 0px 0px 200px 200px;
+  -webkit-border-radius: 0px 0px 200px 200px;
+  -moz-border-radius: 0px 0px 200px 200px;
+}
