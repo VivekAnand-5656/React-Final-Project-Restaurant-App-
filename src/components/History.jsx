@@ -42,7 +42,7 @@ const History = () => {
       {/* 🔹 Filters Section */}
       <div className="flex flex-wrap gap-4 mb-6 items-center">
         <select
-          className="border rounded-md px-3 py-2 text-sm shadow-sm focus:ring focus:ring-orange-200"
+          className="border rounded-md px-3 py-2 text-sm shadow-sm focus:ring focus:ring-blue-200"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -68,7 +68,7 @@ const History = () => {
           </p>
           <button
             onClick={() => (window.location.href = "/menu")}
-            className="bg-orange-500 text-white px-5 py-2 rounded-lg shadow hover:bg-orange-600 transition"
+            className="bg-blue-500 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-600 transition"
           >
             Browse Menu 🍽️
           </button>
@@ -119,7 +119,7 @@ const History = () => {
 
                   <button
                     onClick={() => handleReorder(item)}
-                    className="p-2 bg-orange-500 hover:bg-orange-600 text-white  rounded-lg transition cursor-pointer "
+                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white  rounded-lg transition cursor-pointer "
                   >
                     🔁 Order Again
                   </button>

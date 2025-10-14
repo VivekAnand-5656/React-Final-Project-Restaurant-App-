@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../features/cartSlice';
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { addToCart } from '../features/cartSlice'; 
+import { toast,Flip,Bounce } from 'react-toastify';
 
 const Menus = () => {
   // Dispatches
@@ -63,11 +62,11 @@ const Menus = () => {
   }
 
   return (
-    <div className="w-[90vw] mt-[13vh] mx-auto py-10">
-      {/* ToastContainer placed at top level */}
-      <ToastContainer />
+    <div className="w-[100vw] mt-[10vh] bg-[#ffffff] p-2">
+       
 
-      {/* Filter Section */}
+     <div className=' w-[80%] h-auto mx-auto ' >
+       {/* Filter Section */}
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
         <input
           type="text"
@@ -90,18 +89,18 @@ const Menus = () => {
       </div>
 
       {/* Recipes Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {filteredRecipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white rounded-xl shadow-md p-4 hover:scale-105 transition-transform cursor-pointer"
+            className="bg-[#DBEDF7] rounded-xl shadow-md p-4 hover:scale-103 transition-transform cursor-pointer"
           >
             <img
               src={recipe.image}
               alt={recipe.name}
-              className="w-full h-40 object-cover rounded-lg mb-3"
+              className="w-full h-35 object-cover rounded-lg mb-3"
             />
-            <h2 className="font-bold text-lg mb-1">{recipe.name}</h2>
+            <h2 className="font-bold text-[1rem] mb-1">{recipe.name}</h2>
             <p className="text-sm text-gray-600 mb-1">Cuisine: {recipe.cuisine}</p>
             <p className="text-sm text-gray-600 mb-1">Difficulty: {recipe.difficulty}</p>
             <p className="text-sm text-gray-600">Calories: {recipe.caloriesPerServing} kcal</p>
@@ -126,13 +125,14 @@ const Menus = () => {
                   dispatch(addToCart(recipe));
                 }
               }}
-              className="mt-3 cursor-pointer bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              className="mt-3 cursor-pointer bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             >
               Add To Cart
             </button>
           </div>
         ))}
       </div>
+     </div>
     </div>
   );
 };

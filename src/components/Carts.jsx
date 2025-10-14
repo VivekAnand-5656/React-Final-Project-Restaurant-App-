@@ -2,9 +2,8 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, clearCart, increaseQuantity, decreaseQuantity,orderConfirm } from '../features/cartSlice';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast, Bounce, Flip } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; 
+import { toast,Flip,Bounce } from 'react-toastify';
 
 function Carts() {
   const navigate = useNavigate();
@@ -25,16 +24,16 @@ function Carts() {
         <div className=' flex flex-col justify-center items-center '>
           <p className="text-gray-600 text-center ">Your cart is empty.</p>
           <button
-            className="mt-3 cursor-pointer bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            className="mt-3 cursor-pointer bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             onClick={() => navigate("/menu")}
           >Explore Menu</button>
         </div>
       ) : (
         <>
-          <div className=' w-full h-full border flex justify-between   '>
+          <div className=' w-full h-full flex justify-between   '>
             <div className="w-[70%] h-[auto] flex flex-wrap overflow-scroll  gap-6">
               {cartItems.map((item) => (
-                <div key={item.id} className="bg-white w-[40%] flex items-center gap-2  rounded-xl shadow-md p-4">
+                <div key={item.id} className="bg-[#DBEDF7] w-[40%] flex items-center gap-2  rounded-xl shadow-md p-4">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -76,7 +75,7 @@ function Carts() {
               ))}
             </div>
             {/* --- Total Section--- */}
-            <div className=" w-[30%] h-[60vh] bg-[#C4DBBE]  flex flex-col p-2 gap-3 ">
+            <div className=" w-[30%] h-[60vh] bg-[#DBEDF7]  flex flex-col p-2 gap-3 ">
               <h1 className=' text-[1.2rem] font-bold  '>Bill Details</h1>
               <div className=' flex justify-between items-center '>
                 <p>Total Items ({cartItems.length})</p>
@@ -84,7 +83,7 @@ function Carts() {
               </div>
               <div className=' flex justify-between '>
                 <p> <i class="fa-solid fa-truck"></i> Delievery Charges</p>
-                <p className=' text-[#0612fc] '>FREE</p>
+                <p className=' text-[#050bb5] '>FREE</p>
               </div>
               <div className=' flex justify-between '>
                 <p> <i class="fa-solid fa-bag-shopping"></i> Handling Charges</p>
@@ -92,7 +91,7 @@ function Carts() {
               </div>
               <div className=' flex justify-between '>
                 <h1>Grand Total </h1>
-                <h1 className=' text-[1.2rem] text-[#f60e0e] font-bold '>₹ {grandTotal()}</h1>
+                <h1 className=' text-[1.2rem] text-[#fc3434] font-bold '>₹ {grandTotal()}</h1>
               </div>
               <button
                 // onClick={() => dispatch(clearCart())}
@@ -110,7 +109,7 @@ function Carts() {
                   });
                   dispatch(orderConfirm());
                 }}
-                className="bg-[#00A63E] font-semibold text-white px-6 py-2 rounded hover:bg-gray-900 transition cursor-pointer "
+                className="bg-[#6A6CC7] font-semibold text-white px-6 py-2 rounded hover:bg-gray-900 transition cursor-pointer "
               >
                 Place Order
               </button>
@@ -121,8 +120,7 @@ function Carts() {
               >
                 Clear Cart
               </button>
-            </div>
-            <ToastContainer />
+            </div> 
           </div>
         </>
       )}

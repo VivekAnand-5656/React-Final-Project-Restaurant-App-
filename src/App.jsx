@@ -6,6 +6,8 @@ import Menu from './components/Menus'
 import Cart from './components/Carts'
 import History from './components/History'
 import Profile from './components/Profile'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
  
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
       </Route>
     </Routes>
     </BrowserRouter>
+    <ToastContainer limit={1} />
   </>
 }
 

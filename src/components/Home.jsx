@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { toast,Flip,Bounce } from 'react-toastify'
 
 import front2 from '../images/front2.jpg'
 import pizza from '../images/pizza.png'
@@ -11,9 +12,7 @@ import restu from '../images/restu.jpeg'
 import pr1 from '../images/pr1.png'
 import pr2 from '../images/pr2.png'
 import pr3 from '../images/pr3.png'
-import pr4 from '../images/pr4.png'
-import { ToastContainer, toast, Bounce, Flip } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import pr4 from '../images/pr4.png' 
 
 const Home = () => {
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ const Home = () => {
         initial="hidden"
         animate="show"
         variants={staggerContainer}
-        className='w-[100vw] h-[80vh] mt-[13vh] bg-[#4CAF50] flex justify-center items-center'
+        className='w-[100vw] h-[80vh] mt-[10vh]  bg-[#DBEDF7] flex justify-center items-center'
       >
         <motion.div variants={fadeIn(0.2)} className='left w-[60%] h-[100%] flex flex-col justify-center p-3'>
           <motion.h1 className='text-[4rem] font-bold font-serif'>Delicious Food, Delivered Fast!</motion.h1>
@@ -62,7 +61,7 @@ const Home = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/menu")}
-            className='bg-[#427F56] px-1 py-2 w-[30%] rounded text-white font-semibold cursor-pointer mt-3'
+            className='bg-[#6A6CC7] px-1 py-2 w-[30%] rounded text-white font-semibold cursor-pointer mt-3'
           >
             View Menu
           </motion.button>
@@ -70,7 +69,7 @@ const Home = () => {
 
         <motion.div
           variants={fadeIn(0.4)}
-          className='rad bg-[#427F56] w-[30%] relative h-[100%] flex justify-center items-center'
+          className='rad bg-[#6A6CC7] w-[30%] relative h-[100%] flex justify-center items-center'
         >
           <motion.img
             src={front2}
@@ -95,17 +94,17 @@ const Home = () => {
             key={i}
             variants={fadeIn(i * 0.2)}
             whileHover={{ scale: 1.08 }}
-            className='w-[13%] h-[100%] shadow-md bg-[#9df9bc] flex flex-col justify-around p-2 rounded cursor-pointer transition-all duration-500'
+            className='w-[13%] h-[100%] shadow-md bg-[#DBEDF7] flex flex-col justify-around p-2 rounded cursor-pointer transition-all duration-500'
           >
             <img src={item.img} alt={item.title} className='w-[90%] h-[50%]' />
             <h1 className='text-[1.3rem] font-semibold uppercase'>{item.title}</h1>
-            <motion.button whileHover={{ scale: 1.1 }} className='bg-[#427F56] rounded font-semibold text-white cursor-pointer'>Explore</motion.button>
+            <motion.button whileHover={{ scale: 1.1 }} className='bg-[#6A6CC7] rounded font-semibold text-white cursor-pointer'>Explore</motion.button>
           </motion.div>
         ))}
       </motion.div>
 
       {/* --- About Section --- */}
-      <motion.div variants={fadeIn(0.2)} initial="hidden" whileInView="show" viewport={{ once: true }}>
+      <motion.div id='about' variants={fadeIn(0.2)} initial="hidden" whileInView="show" viewport={{ once: true }}>
         <h1 className='text-center font-bold text-[2.5rem]'>About</h1>
         <div className="w-[85vw] mx-auto py-12 flex flex-col md:flex-row items-center gap-10">
           <motion.div variants={fadeIn(0.3)} className="w-full md:w-1/2">
@@ -114,7 +113,7 @@ const Home = () => {
 
           <motion.div variants={fadeIn(0.4)} className="w-full md:w-1/2 text-center md:text-left">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              About <span className="text-green-600">Our Restaurant</span>
+              About <span className="text-[#6A6CC7]">Our Restaurant</span>
             </h2>
             <p className="text-gray-600 mb-4">
               Welcome to <span className="font-semibold text-gray-800">Dishly</span>, your go-to destination for delicious meals and quick online ordering.
@@ -122,7 +121,7 @@ const Home = () => {
             <p className="text-gray-600 mb-6">
               Whether you’re craving pizza, burgers, or desserts — we’ve got something for everyone.
             </p>
-            <motion.button whileHover={{ scale: 1.1 }} onClick={() => navigate("/menu")} className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-full transition-all duration-300">
+            <motion.button whileHover={{ scale: 1.1 }} onClick={() => navigate("/menu")} className="bg-[#6A6CC7] hover:bg-blue-700 cursor-pointer text-white font-semibold px-6 py-2 rounded-full transition-all duration-300">
               Explore Menu
             </motion.button>
           </motion.div>
@@ -158,29 +157,28 @@ const Home = () => {
       </motion.div>
 
       {/* --- Contact Section --- */}
-      <motion.div variants={fadeIn(0.3)} initial="hidden" whileInView="show" viewport={{ once: true }} className="w-[85vw] mx-auto py-12">
+      <motion.div id='contact' variants={fadeIn(0.3)} initial="hidden" whileInView="show" viewport={{ once: true }} className="w-[85vw] mx-auto py-12">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
-          Get in <span className="text-green-600">Touch</span>
+          Get in <span className="text-blue-600">Touch</span>
         </h2>
         <motion.div variants={staggerContainer} className="flex flex-col md:flex-row gap-10">
           <motion.div variants={fadeIn(0.2)} className="md:w-1/2 flex flex-col gap-6">
             <div className="flex items-center gap-4">
-              <i className="fa-solid fa-location-dot text-green-600 text-2xl"></i>
+              <i className="fa-solid fa-location-dot text-blue-600 text-2xl"></i>
               <p className="text-gray-600">123 Foodie St, City, Country</p>
             </div>
             <div className="flex items-center gap-4">
-              <i className="fa-solid fa-phone text-green-600 text-2xl"></i>
+              <i className="fa-solid fa-phone text-blue-600 text-2xl"></i>
               <p className="text-gray-600">+91 9876543210</p>
             </div>
             <div className="flex items-center gap-4">
-              <i className="fa-solid fa-envelope text-green-600 text-2xl"></i>
+              <i className="fa-solid fa-envelope text-blue-600 text-2xl"></i>
               <p className="text-gray-600">support@dishly.com</p>
             </div>
           </motion.div>
 
           <motion.div variants={fadeIn(0.3)} className="md:w-1/2 bg-[#E8F5E9] p-6 rounded-2xl shadow-md">
-            <ToastContainer />
-            <form className="flex flex-col gap-4"
+             <form className="flex flex-col gap-4"
               onSubmit={(e) => {
                 e.preventDefault();
                 toast.success('Your message sent successfully✅', {
@@ -196,10 +194,10 @@ const Home = () => {
                 });
               }}
             >
-              <input type="text" name='name' placeholder="Your Name" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600" />
-              <input type="email" placeholder="Your Email" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600" />
-              <textarea placeholder="Your Message" rows="4" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
-              <motion.button whileHover={{ scale: 1.05 }} type="submit" className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300">
+              <input type="text" name='name' placeholder="Your Name" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+              <input type="email" placeholder="Your Email" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+              <textarea placeholder="Your Message" rows="4" className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+              <motion.button whileHover={{ scale: 1.05 }} type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300">
                 Send Message
               </motion.button>
             </form>
