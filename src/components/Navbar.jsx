@@ -161,11 +161,12 @@ const Navbar = () => {
             </button>
           ) : (
             <div className="flex flex-col items-center gap-2 mt-3">
-              <NavLink  onClick={() => {
+              <NavLink to="/profile"  onClick={() => {
                 setMenuOpen(false);
-                navigate("/")
               }}>
-                <h1 className="text-[1rem] font-semibold capitalize underline">
+                <h1 className="text-[1rem] font-semibold capitalize underline" 
+                onClick={()=>navigate("/profie")}
+                 >
                   {curUser?.name || "User"}
                 </h1>
               </NavLink>
