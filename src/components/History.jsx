@@ -1,23 +1,21 @@
+// src/pages/History.jsx
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart,orderConfirm } from "../features/cartSlice";
+import { addToCart } from "../features/cartSlice";
 import { motion } from "framer-motion";
 
 const History = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.cart.order); // Using cart items as mock order data 
+  const orders = useSelector((state) => state.cart.order);
 
-  // 🔹 Filters
   const [statusFilter, setStatusFilter] = useState("All");
   const [dateFilter, setDateFilter] = useState("");
 
-  // 🔹 Dummy Status for mock data
   const getStatus = (index) => {
     const statuses = ["Delivered", "In Progress", "Cancelled"];
     return statuses[index % 3];
   };
 
-  // 🔹 Filtered Orders
   const filteredOrders = orders.filter((item, index) => {
     const orderDate = new Date().toISOString().split("T")[0];
     const matchesDate = !dateFilter || orderDate === dateFilter;
@@ -31,10 +29,8 @@ const History = () => {
   };
 
   return (
-    <div className="w-[100vw] min-h-[87vh] mt-[13vh] px-4 sm:px-8 py-6 bg-gray-50">
-      <h1 className="text-2xl font-bold mb-2">
-        Your Order History 🍕🍔🍰
-      </h1>
+    <div className="w-full min-h-[87vh] mt-[13vh] px-4 sm:px-8 py-6 bg-gray-50">
+      <h1 className="text-2xl font-bold mb-2">Your Order History 🍕🍔🍰</h1>
       <p className="text-gray-600 mb-6">
         Here’s a summary of all your past delicious moments.
       </p>
@@ -74,26 +70,32 @@ const History = () => {
           </button>
         </div>
       ) : (
-        <div className="w-full h-auto flex flex-wrap gap-2 ">
+        <div className="w-full flex flex-col gap-4">
           {filteredOrders.map((item, index) => (
             <motion.div
               key={item.id}
               whileHover={{ scale: 1.02 }}
-              className="w-[100%] h-[25vh] flex  bg-white rounded-2xl shadow-md overflow-hidden transition p-2  "
+              className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-md overflow-hidden transition p-3 sm:p-4"
             >
+              {/* Image */}
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-[15%] h-full object-cover rounded"
+                className="w-full sm:w-[25%] h-40 sm:h-auto object-cover rounded-lg"
               />
-              <div className="p-4 flex justify-around w-[80%] ">
-                <div className=" flex flex-col " >
-                  <h2 className="font-semibold text-[1rem">{item.name}</h2>
+
+              {/* Content */}
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center w-full sm:w-[75%] mt-3 sm:mt-0 sm:pl-4 gap-3">
+                {/* Left Info */}
+                <div>
+                  <h2 className="font-semibold text-lg">{item.name}</h2>
                   <p className="text-gray-600 text-sm mb-2">
                     Cuisine: {item.cuisine || "Continental"}
                   </p>
                 </div>
-                <div className=" flex flex-col " >
+
+                {/* Middle Info */}
+                <div>
                   <p className="font-semibold text-gray-700">
                     ₹ {199 * item.quantity}
                   </p>
@@ -102,24 +104,26 @@ const History = () => {
                   </p>
                 </div>
 
-                <div className=" flex flex-col gap-2 " >
+                {/* Right Info */}
+                <div className="flex flex-col gap-2">
                   <p
-                    className={`mt-2 text-sm font-medium ${getStatus(index) === "Delivered"
-                      ? "text-green-600"
-                      : getStatus(index) === "In Progress"
+                    className={`text-sm font-medium ${
+                      getStatus(index) === "Delivered"
+                        ? "text-green-600"
+                        : getStatus(index) === "In Progress"
                         ? "text-yellow-600"
                         : "text-red-600"
-                      }`}
+                    }`}
                   >
                     Status: {getStatus(index)}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-gray-400">
                     Ordered on: {new Date().toLocaleDateString()}
                   </p>
 
                   <button
                     onClick={() => handleReorder(item)}
-                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white  rounded-lg transition cursor-pointer "
+                    className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
                   >
                     🔁 Order Again
                   </button>

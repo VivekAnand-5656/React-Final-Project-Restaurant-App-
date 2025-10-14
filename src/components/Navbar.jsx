@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toggle, isLogin, setUser, logoutUser } from "../features/show";
 import { motion } from "framer-motion";
-import { Flip,Bounce,toast } from "react-toastify";
-
+import { Flip, Bounce, toast } from "react-toastify";
 import person from "../images/person.png";
+
 
 const Navbar = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -13,151 +13,102 @@ const Navbar = () => {
   const isLoged = useSelector((state) => state.showLogin.isLog);
   const curUser = useSelector((state) => state.showLogin.currentUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ email: "", name: "", mobile: "" });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const { name, email, mobile } = formData;
     if (!name || !email) {
-      if (!toast.isActive("fillError")) {
-        toast.error("Please fill all fields!", {
-          toastId: "fillError",
-          position: "top-right",
-          autoClose: 2000,
-          theme: "dark",
-          transition: Bounce,
-        });
-      }
+      toast.error("Please fill all fields!", {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+        transition: Bounce,
+      });
       return;
     }
 
-    const userData = { name, email, mobile };
-
-    // ✅ Prevent duplicate toast
-    if (!toast.isActive("loginSuccess")) {
-      toast.success(`Welcome, ${name}! ✅`, {
-        toastId: "loginSuccess",
-        position: "top-center",
-        autoClose: 2000,
-        theme: "dark",
-        transition: Flip,
-        closeOnClick: true,
-        draggable: true,
-        pauseOnHover: false,
-      });
-    }
-
-    // ✅ Store data in Redux (no loop)
-    dispatch(setUser(userData));
+    dispatch(setUser({ name, email, mobile }));
     dispatch(isLogin());
     dispatch(toggle());
-
-    // ✅ Reset form
+    toast.success(`Welcome, ${name}! ✅`, {
+      position: "top-center",
+      autoClose: 2000,
+      theme: "dark",
+      transition: Flip,
+    });
     setFormData({ email: "", name: "", mobile: "" });
   };
 
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(isLogin());
-
-    if (!toast.isActive("logoutInfo")) {
-      toast.info("Logged out successfully!", {
-        toastId: "logoutInfo",
-        position: "top-center",
-        autoClose: 1000,
-        theme: "dark",
-        transition: Flip,
-        closeOnClick: true,
-        draggable: true,
-        pauseOnHover: false,
-      });
-    }
+    toast.info("Logged out successfully!", {
+      position: "top-center",
+      autoClose: 1000,
+      theme: "dark",
+      transition: Flip,
+    });
   };
 
   return (
     <>
+      {/* NAVBAR */}
       <nav className="w-full h-[10vh] fixed z-40 top-0 bg-[#DBEDF7] shadow-md flex justify-between items-center px-6 md:px-10 transition-all duration-300">
-        <h1 className="text-[2.8rem] font-extrabold uppercase text-[#6A6CC7] underline  hover:scale-105 transition-transform duration-300">
+        {/* Logo */}
+        <h1 className="text-[2rem] md:text-[2.5rem] font-extrabold uppercase text-[#6A6CC7] underline hover:scale-105 transition-transform duration-300 cursor-pointer">
           DishLy
         </h1>
 
-        {/* Navigation Links */}
-        <ul className="links w-[55%] flex justify-evenly items-center gap-4 font-semibold  px-4 py-2 rounded-full shadow-inner">
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "text-[#6A6CC7] px-3 py-1 rounded border-b-2 border-b-[#6A6CC7] transition-all duration-300"
-                  : "text-[#6A6CC7] hover:text-[#6A6CC7] transition-all duration-300"
-              }
-              to="/"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                   ? "text-[#6A6CC7] px-3 py-1 rounded border-b-2 border-b-[#6A6CC7] transition-all duration-300"
-                  : "text-[#6A6CC7] hover:text-[#6A6CC7] transition-all duration-300"
-              }
-              to="menu"
-            >
-              Menu
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                   ? "text-[#6A6CC7] px-3 py-1 rounded border-b-2 border-b-[#6A6CC7] transition-all duration-300"
-                  : "text-[#6A6CC7] hover:text-[#6A6CC7] transition-all duration-300"
-              }
-              to="cart"
-            >
-              <i className="fa-solid fa-cart-shopping relative">
-                <sup className="absolute -top-3 -right-3 bg-[#fa0606] text-white text-xs px-[6px] py-[1px] rounded-full shadow-md">
-                  {cartItems.length}
-                </sup>
-              </i>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                   ? "text-[#6A6CC7] px-3 py-1 rounded border-b-2 border-b-[#6A6CC7] transition-all duration-300"
-                  : "text-[#6A6CC7] hover:text-[#6A6CC7] transition-all duration-300"
-              }
-              to="history"
-            >
-              Orders
-            </NavLink>
-          </li>
+        {/* --- Hamburger for Mobile --- */}
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-3xl text-[#6A6CC7]">
+            <i className={menuOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars"}></i>
+          </button>
+        </div>
+
+        {/* --- Navigation Links (Desktop) --- */}
+        <ul className="hidden md:flex justify-evenly items-center gap-4 font-semibold px-4 py-2 rounded-full shadow-inner">
+          {["/", "menu", "cart", "history"].map((path, idx) => (
+            <li key={idx}>
+              <NavLink
+                to={path === "/" ? "/" : path}
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-[#6A6CC7] px-3 py-1 rounded border-b-2 border-b-[#6A6CC7]"
+                    : "text-[#6A6CC7] hover:text-[#6A6CC7]"
+                }
+              >
+                {path === "/" ? "Home" : path === "history" ? "Orders" : path === "cart" ? (
+                  <i className="fa-solid fa-cart-shopping relative">
+                    <sup className="absolute -top-3 -right-3 bg-[#fa0606] text-white text-xs px-[6px] py-[1px] rounded-full shadow-md">
+                      {cartItems.length}
+                    </sup>
+                  </i>
+                ) : (
+                  path.charAt(0).toUpperCase() + path.slice(1)
+                )}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         {/* --- Login / Profile --- */}
         {!isLoged ? (
           <button
             onClick={() => dispatch(toggle())}
-            className="bg-white text-[#6A6CC7] text-[0.9rem] px-3 py-1.5 cursor-pointer rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 "
+            className="hidden md:block bg-white text-[#6A6CC7] text-[0.9rem] px-3 py-1.5 rounded-lg font-semibold hover:bg-gray-100 transition-all"
           >
             Login
           </button>
         ) : (
-          <div className="flex justify-center items-center gap-3 cursor-pointer">
-            <img
-              src={person}
-              className="w-[50px] h-[50px] rounded-full"
-              alt="profile"
-            />
+          <div className="hidden md:flex justify-center items-center gap-3 cursor-pointer">
+            <img src={person} className="w-[45px] h-[45px] rounded-full" alt="profile" />
             <NavLink to="profile">
               <h1 className="text-[1rem] font-semibold capitalize underline">
                 {curUser?.name || "User"}{" "}
@@ -173,6 +124,61 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
+      {/* --- Mobile Menu --- */}
+      {menuOpen && (
+        <div className=" top-[10vh] fixed left-0 w-full h-full bg-[#DBEDF7] shadow-md flex flex-col items-center py-4 md:hidden z-30">
+          {["/", "menu", "cart", "history"].map((path, idx) => (
+            <NavLink
+              key={idx}
+              to={path === "/" ? "/" : path}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-[#6A6CC7] py-2 font-semibold border-b-2 border-b-[#6A6CC7] w-full text-center"
+                  : "text-[#6A6CC7] py-2 font-semibold hover:text-[#6A6CC7] w-full text-center"
+              }
+            >
+              {path === "/" ? "Home" : path === "history" ? "Orders" : path === "cart" ? (
+                <>
+                  <i className="fa-solid fa-cart-shopping relative mr-2"></i>Cart ({cartItems.length})
+                </>
+              ) : (
+                path.charAt(0).toUpperCase() + path.slice(1)
+              )}
+            </NavLink>
+          ))}
+
+          {!isLoged ? (
+            <button
+              onClick={() => {
+                dispatch(toggle());
+                setMenuOpen(false);
+              }}
+              className="mt-3 bg-white text-[#6A6CC7] text-[0.9rem] px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
+              Login
+            </button>
+          ) : (
+            <div className="flex flex-col items-center gap-2 mt-3">
+              <NavLink  onClick={() => {
+                setMenuOpen(false);
+                navigate("/")
+              }}>
+                <h1 className="text-[1rem] font-semibold capitalize underline">
+                  {curUser?.name || "User"}
+                </h1>
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="bg-white text-[#42457f] text-[0.9rem] px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* --- Login Modal --- */}
       {shoLog && (
@@ -232,8 +238,6 @@ const Navbar = () => {
           </motion.div>
         </motion.div>
       )}
-
-      
     </>
   );
 };
