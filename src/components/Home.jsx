@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { toast, Flip } from 'react-toastify'
 
 import front2 from '../images/front2.jpg'
+import front1 from '../images/front1.jpeg'
+import front3 from '../images/front3.jpeg'
 import pizza from '../images/pizza.png'
 import burger from '../images/burger.png'
 import drink from '../images/drink.png'
@@ -16,6 +18,7 @@ import pr4 from '../images/pr4.png'
 
 const Home = () => {
   const navigate = useNavigate();
+  const [pic,setPic] = useState(front1);
 
   let ftr = [
     { img: pizza, title: "Pizza" },
@@ -50,7 +53,7 @@ const Home = () => {
         variants={staggerContainer}
         className="w-full min-h-[80vh] mt-[10vh] bg-[#DBEDF7] flex flex-col md:flex-row justify-center items-center"
       >
-        <motion.div variants={fadeIn(0.2)} className="w-[90%] md:w-[60%] flex flex-col justify-center p-5 text-center md:text-left">
+        <motion.div variants={fadeIn(0.2)} className="w-[90%] md:w-[50%] flex flex-col justify-center p-5 text-center md:text-left">
           <motion.h1 className="text-[2.5rem] md:text-[4rem] font-bold font-serif leading-tight">
             Delicious Food, Delivered Fast!
           </motion.h1>
@@ -62,7 +65,7 @@ const Home = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/menu")}
-            className="bg-[#6A6CC7] px-4 py-3 md:w-[40%] rounded text-white font-semibold cursor-pointer mt-4 mx-auto md:mx-0"
+            className="bg-[#0206ff] px-1 py-3 md:w-[30%] rounded-3xl text-white font-semibold cursor-pointer mt-4 mx-auto md:mx-0"
           >
             View Menu
           </motion.button>
@@ -70,15 +73,26 @@ const Home = () => {
 
         <motion.div
           variants={fadeIn(0.4)}
-          className="w-[80%] md:w-[35%] flex justify-center items-center mt-6 md:mt-0"
+          className="right  w-[80%] md:w-[40%] flex justify-center gap-2 bg-blue-800 p-2 items-center mt-6 md:mt-0   "
         >
           <motion.img
-            src={front2}
+            src={pic}
             alt="Dishly"
-            className="w-[80%] h-auto rounded-full shadow-lg"
+            className="w-[70%] h-auto rounded-full shadow-lg"
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
           />
+          <div className=' w-[10%] h-full bg-[#ffffff5e] p-2 flex flex-col gap-3 rounded-2xl ' >
+            <img 
+            onClick={()=>setPic(front1)}
+             className=' rounded-[50%] w-full h-[35%] cursor-pointer '  src={front1} alt="" />
+            <img  
+            onClick={()=>setPic(front2)}
+            className=' rounded-[50%] w-full h-[35%] cursor-pointer ' src={front2} alt="" />
+            <img 
+            onClick={()=>setPic(front3)}
+            className=' rounded-[50%] w-full h-[35%] cursor-pointer ' src={front3} alt="" />
+          </div>
         </motion.div>
       </motion.div>
 
