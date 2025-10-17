@@ -62,7 +62,7 @@ const Menus = () => {
   }
 
   return (
-    <div className="w-[100vw] mt-[10vh] bg-[#ffffff] p-2">
+    <div className="w-[100vw] h-auto   mt-[12vh] bg-[#ffffff] p-2">
        
 
      <div className=' w-[80%] h-auto mx-auto ' >
