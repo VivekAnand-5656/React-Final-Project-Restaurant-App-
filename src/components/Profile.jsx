@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import person from "../images/person.png";
 
-const Profile = () => {
+const Profile = () => {  
   const curUser = useSelector((state) => state.showLogin.currentUser);
 
   return (
@@ -31,7 +31,7 @@ const Profile = () => {
           </h1>
           <h1>
             <span className="font-semibold">Mobile:</span>{" "}
-            <span className="text-gray-700">{curUser.mobile}</span>
+            <span className="text-gray-700">{curUser.phone}</span>
           </h1>
         </div>
       </div>

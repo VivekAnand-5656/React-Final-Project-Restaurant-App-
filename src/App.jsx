@@ -6,6 +6,7 @@ import Menu from './components/Menus'
 import Cart from './components/Carts'
 import History from './components/History'
 import Profile from './components/Profile'
+// import Signup from './components/Signup'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
  
@@ -20,6 +21,7 @@ function App() {
         <Route path='cart' element={<Cart/>} />
         <Route path='history' element={<History/>} /> 
         <Route path='profile' element={<Profile/>} /> 
+        {/* <Route path='signup' element={<Signup/>} /> */}
       </Route>
     </Routes>
     </BrowserRouter>

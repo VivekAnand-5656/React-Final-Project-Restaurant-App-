@@ -4,6 +4,8 @@ const initialState = {
   isShow: false,
   isLog:false,
   currentUser:null,
+  userData:[],
+  userName:"",
 };
 
 const showL = createSlice({
@@ -22,10 +24,16 @@ const showL = createSlice({
     },
     logoutUser:(state)=>{
       state.currentUser = null;
+    },
+    signupData:(state,action)=>{
+      state.userData=action.payload;
+    },
+    currUserName:(state,action)=>{
+      state.userName = action.payload;
     }
   },
 });
 
-export const { toggle,isLogin,setUser,logoutUser } = showL.actions;
+export const { toggle,isLogin,setUser,logoutUser,signupData,currUserName } = showL.actions;
 export default showL.reducer;
   
